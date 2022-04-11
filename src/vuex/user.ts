@@ -1,27 +1,28 @@
-let userStore = {
+const userStore = {
+    namespace:true,
     state(){
         return{
-            age:20
+            age:26
         }
     },
-    mutatios:{
-        incCount(state){
+    mutations:{
+        incCount(state:any){
             state.age++
         },
-        setAge(state,age){
+        setAge(state:any,age:number){
             state.age = age
         }
     },
     getters:{
-        getAge(state){
+        getAge(state:any){
             return state.age
         }
     },
     actions:{
-        incCount(context){
+        incCount(context:any){
             context.commit('incCount')
         },
-        setAge({commit},age){
+        setAge({commit}:any,age:number){
             commit('setAge',age)
         }
     }

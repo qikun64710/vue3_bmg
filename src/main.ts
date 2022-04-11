@@ -5,7 +5,7 @@ import './style/index.scss'
 import App from './App.vue'
 import router from './router'
 // 引入vuex
-import store from './vuex/index.js'
+import store from './vuex/index'
 
 const app = createApp(App)
 app.use(ElementPlus)
