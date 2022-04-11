@@ -1,5 +1,5 @@
 export const showMessage = (status:number|string) : string => {
-    let message:string = '请检查网络或联系管理员！';
+    let message = '请检查网络或联系管理员！';
     switch(status){
         case 400:
             message = '请求错误(400)';
