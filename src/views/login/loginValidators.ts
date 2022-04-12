@@ -1,5 +1,5 @@
-import {ref, reactive } from "vue";
-interface formData{
+import { reactive } from "vue";
+export interface formData{
     name:string,
     password:string,
     checkbox:boolean
@@ -9,7 +9,7 @@ export const loginUser:formData = reactive({
     password:'',
     checkbox:false
 })
-interface Rules{
+export interface Rules{
     name:({
         required:boolean,
         message:string,

@@ -1,8 +1,6 @@
 *{
     margin: 0;
     padding: 0;
-    font-weight: 400;
-    box-sizing: border-box;
   }
   body,html{
     width: 100%;
@@ -12,37 +10,4 @@
   *:before,
   *:after {
     box-sizing: border-box;
-  }
-  .clearfix:after{
-    content: '.';
-    height: 0;
-    display: block;
-    visibility: hidden;
-    clear: both;
-  }
-  .clearfix{
-    zoom: 1;
-  }
-  a{
-    color: #666;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  ul li{
-    list-style: none;
-  }
-  .wrapper{
-    padding: 15px;
-  }
-  .img-circle{
-    border-radius: 50%;
-  }
-  .block{
-    display: block;
-  }
-  .oneOmit{
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }

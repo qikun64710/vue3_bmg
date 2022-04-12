@@ -2,6 +2,7 @@
     <el-form 
         :model="user" 
         :rules="rules"
+        ref="ruleFormRef"
         label-width="0px">
         <el-form-item>
             <h2>登录</h2>
@@ -10,7 +11,7 @@
             <el-input v-model="user.name"  placeholder="账号" />
         </el-form-item>
         <el-form-item prop="password">
-            <el-input v-model="user.password"  placeholder="密码" />
+            <el-input type='password' v-model="user.password"  placeholder="密码" />
         </el-form-item>
         <el-form-item>
             <div class="remember">
@@ -19,27 +20,34 @@
             </div>
         </el-form-item>
         <el-form-item>
-            <el-button @click="showform" style="width:100%" type="primary">登录</el-button>
+            <el-button @click="submit(ruleFormRef)" style="width:100%" type="primary">登录</el-button>
         </el-form-item>
     </el-form>
 </template>
 <script lang="ts" setup>
-import { defineProps,computed } from 'vue'
-const props = defineProps({
-    loginUser:{
-        type:Object,
-        requried:true,
-    },
-    rules:{
-        type:Object,
-        requried:true,
+import{ formData,Rules} from './loginValidators'
+import { defineProps,ref ,defineEmits} from 'vue'
+import type { FormInstance } from 'element-plus'
+
+const props = defineProps<{
+    loginUser:formData
+    rules:Rules
+}>()
+const emit = defineEmits<{
+  (e: 'submit', userInfo: formData): void
+}>()
+const user = ref(props.loginUser)
+
+const ruleFormRef = ref<FormInstance>()
+console.log('ruleFormRef',ruleFormRef)
+// 点击事件
+const submit = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  await formEl.validate((valid) => {
+    if (valid) {
+      emit('submit', user.value)
     }
-})
-const user:any = computed(() => props.loginUser)
-const showform = ():void => {
-    console.log('user:',user.value.name)
-    user.value.name = 2
-    console.log('user:',user)
+  })
 }
 </script>
 <style lang="scss" scoped>
