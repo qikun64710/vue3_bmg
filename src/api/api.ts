@@ -5,16 +5,6 @@ import { ElMessage } from 'element-plus';
 
 const service:AxiosInstance = axios.create({
     baseURL:process.env.NODE_ENV === 'production' ? `http://169.254.254.183:3001/` : 'http://169.254.254.183:3001/api',
-    headers:{
-        Accept:'application/json',
-        "Content-Type": "application/x-www-form-urlencoded"
-    },
-    transformRequest:[
-        (data)=>{
-            data = qs.stringify(data);
-            return data
-        }
-    ],
     validateStatus() {
         // 使用async-await，处理reject情况较为繁琐，所以全部返回resolve，在业务代码中处理异常
         return true

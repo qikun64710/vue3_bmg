@@ -8,7 +8,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Home,
     children:[
       {
-        path: '/editArticle',
+        path: 'editArticle',
         name: 'EditArticle',
         component: () => import( '../views/editArticle.vue')
       }
