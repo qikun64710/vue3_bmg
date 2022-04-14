@@ -19,7 +19,7 @@
                         <el-upload
                             ref="upload"
                             class="upload-demo"
-                            action="http://169.254.254.183:3001/api/uploadimg"
+                            action="http://192.168.199.235:3001/api/uploadimg"
                             :limit="1"
                             :on-exceed="handleExceed"
                             :on-change="handleChange"
@@ -153,13 +153,13 @@ const handleChange:UploadProps['onChange'] = (file:any):void => {
 }
 // 保存发布
 const save = () => {
-    let {title,previewImage,description,content_html} = article
+    let {title,previewImage,description,content} = article
     console.log(1)
     let params = {
         title,
         previewImage,
         description,
-        content_html
+        content
     }
     articleApi.addArticle(params).then(res => {
         console.log(res)

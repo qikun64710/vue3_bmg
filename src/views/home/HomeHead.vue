@@ -27,6 +27,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        border-bottom: 1px solid #ddd;
         &-right{
             .headavatar{
                 cursor: pointer;

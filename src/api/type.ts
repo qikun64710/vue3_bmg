@@ -24,6 +24,6 @@ export interface addArticle{
     title:string,
     previewImage?:string,
     description?:string,
-    content_html:string
+    content:string
 
 }
