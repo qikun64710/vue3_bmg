@@ -19,7 +19,7 @@
                         <el-upload
                             ref="upload"
                             class="upload-demo"
-                            action="http://192.168.199.235:3001/api/uploadimg"
+                            action="http://169.254.254.183:3001/api/uploadimg"
                             :limit="1"
                             :on-exceed="handleExceed"
                             :on-change="handleChange"
@@ -63,12 +63,18 @@
         </el-row>
         <el-row>
             <el-col :span="24">
-                <md-editor 
+                <!-- <md-editor 
                     v-model="article.content" 
                     @onChange="onChange" 
                     @onUploadImg="onUploadImg" 
-                    @onHtmlChanged="saveHtml"
-                />
+                /> -->
+                <mavonEditor
+                    @imgAdd="onUploadImg" 
+                    style="height: 600px;"
+                    v-model="article.content"     
+                    @change="onChange"   
+                    ref='md'         
+                ></mavonEditor>
             </el-col>
         </el-row>
         </el-form>
@@ -101,6 +107,8 @@ import { reactive ,ref} from "vue";
 import { genFileId } from 'element-plus'
 import MdEditor from "md-editor-v3";
 import "md-editor-v3/lib/style.css";
+import mavonEditor from 'mavon-editor' 
+import 'mavon-editor/dist/css/index.css'
 import {tags} from '../mock/data';
 import { articleApi } from '@/api/article'
 import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus'
@@ -135,10 +143,13 @@ const tag = reactive<{
   list: tags,
   tagsSelected: []
 });
-const onChange = () => {console.log(1)};
-const saveHtml = (h:string) =>{
-    article.content_html = h
+const onChange = (value:string,render:string) => {
+    article.content_html = render
+    console.log('render:',render,value)
 };
+// const saveHtml = (h:string) =>{
+//     article.content_html = h
+// };
 const upload = ref<UploadInstance>()
 const handleExceed: UploadProps['onExceed'] = (files) => {
   upload.value!.clearFiles()
@@ -153,13 +164,13 @@ const handleChange:UploadProps['onChange'] = (file:any):void => {
 }
 // 保存发布
 const save = () => {
-    let {title,previewImage,description,content} = article
+    let {title,previewImage,description,content,content_html} = article
     console.log(1)
     let params = {
         title,
         previewImage,
         description,
-        content
+        content:content_html
     }
     articleApi.addArticle(params).then(res => {
         console.log(res)
