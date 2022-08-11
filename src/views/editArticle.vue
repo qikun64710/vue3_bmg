@@ -19,7 +19,7 @@
                         <el-upload
                             ref="upload"
                             class="upload-demo"
-                            action="http://169.254.254.183:3001/api/uploadimg"
+                            action="http://192.168.199.235:3001/api/uploadimg"
                             :limit="1"
                             :on-exceed="handleExceed"
                             :on-change="handleChange"
@@ -53,9 +53,9 @@
                         <el-checkbox 
                             :class="tag.colors[Math.floor(Math.random() * tag.colors.length)]"
                             v-for="item of tag.list" 
-                            :key="item.tagId" 
-                            :label="item.tagId" >
-                            {{ item.tagName}}
+                            :key="item.id" 
+                            :label="item.id" >
+                            {{ item.name}}
                         </el-checkbox>
                     </el-checkbox-group>
                 </el-card>
@@ -96,12 +96,12 @@ export default defineComponent({
 }) 
 </script>
 <script lang="ts" setup>
-import { reactive ,ref} from "vue";
+import { reactive ,ref,onBeforeMount} from "vue";
 import { genFileId } from 'element-plus'
 import MdEditor from "md-editor-v3";
 import "md-editor-v3/lib/style.css";
-import {tags} from '../mock/data';
 import { articleApi } from '@/api/article'
+import { categoryApi } from '@/api/category'
 import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus'
 const article = reactive({
   title: '',
@@ -114,12 +114,12 @@ const article = reactive({
 const tag = reactive<{
   colors: string[];
   list: Array<{
-    tagId: number;
-    tagName: string;
+    id: number;
+    name: string;
   }>;
   tagsSelected: Array<{
-    tagId: number;
-    tagName: string;
+    id: number;
+    name: string;
   }>;
 }>({
   colors: [
@@ -131,15 +131,21 @@ const tag = reactive<{
     'color-purple',
     'color-white'
   ],
-  list: tags,
+  list: [],
   tagsSelected: []
 });
+onBeforeMount(() => {
+    categoryApi.selectCaAll().then(res=>{
+        console.log('res:::',res,res.code)
+        if(res.code == 200){
+            tag.list = res.data
+            console.log('tag::',tag.list)
+        }
+    })
+})
 const onChange = (value:string,render:string) => {
     article.content = value
     // console.log('render:',render,value)
-};
-const saveHtml = (h:string) =>{
-    article.content_html = h
 };
 const upload = ref<UploadInstance>()
 const handleExceed: UploadProps['onExceed'] = (files) => {
@@ -149,6 +155,7 @@ const handleExceed: UploadProps['onExceed'] = (files) => {
   upload.value!.handleStart(file)
 }
 const handleChange:UploadProps['onChange'] = (file:any):void => {
+    console.log('file:',file)
     if(file.status == 'success'){
         article.previewImage = file.response.data
     }
@@ -161,7 +168,8 @@ const save = () => {
         title,
         previewImage,
         description,
-        content:content
+        content:content,
+        categoryArr:tag.tagsSelected
     }
     articleApi.addArticle(params).then(res => {
         console.log(res)

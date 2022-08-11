@@ -4,7 +4,7 @@ import { showMessage } from './status';
 import { ElMessage } from 'element-plus';
 
 const service:AxiosInstance = axios.create({
-    baseURL:process.env.NODE_ENV === 'production' ? `http://192.168.199.235:3001/` : 'http://169.254.254.183:3001/api',
+    baseURL:process.env.NODE_ENV === 'production' ? `http://192.168.199.235:3001/` : 'http://192.168.199.235:3001/api',
     validateStatus() {
         // 使用async-await，处理reject情况较为繁琐，所以全部返回resolve，在业务代码中处理异常
         return true
