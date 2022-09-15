@@ -3,6 +3,6 @@ import { UploadFile,IResponse } from './type'
 
 export class commonApi{
     static uploadimg = (params: any): Promise<IResponse> => {
-        return api.post('uploadimg',params).then(res => res.data);
+        return api.post('article/uploadImg',params).then(res => res.data);
     };
 }

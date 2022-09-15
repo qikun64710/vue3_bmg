@@ -1,7 +1,7 @@
 export interface IResponse{
     code:string | number,
-    data:any,
-    msg:string
+    result:any,
+    message:string
 }
 
 /**用户登录 */

@@ -15,11 +15,11 @@
                         <el-input v-model="article.title" />
                     </el-form-item>
                     <el-form-item label="预览图片">
-                        <el-input v-model="article.previewImage"></el-input>
+                        <el-input v-model="article.banner"></el-input>
                         <el-upload
                             ref="upload"
                             class="upload-demo"
-                            action="http://192.168.199.235:3001/api/uploadimg"
+                            :action="action"
                             :limit="1"
                             :on-exceed="handleExceed"
                             :on-change="handleChange"
@@ -74,9 +74,14 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent} from "vue";
-import {commonApi} from '@/api/common'
+import { defineComponent } from "vue";
+import { commonApi } from '../api/common'
 export default defineComponent({
+    computed: {
+        action() {
+            return `${process.env.VUE_APP_BASE_API}article/uploadImg`
+        }
+    },
     methods:{
         async onUploadImg(files: FileList, callback: (urls: string[]) => void) {
             const res = await Promise.all(
@@ -96,17 +101,17 @@ export default defineComponent({
 }) 
 </script>
 <script lang="ts" setup>
-import { reactive ,ref,onBeforeMount} from "vue";
+import { reactive , ref, onBeforeMount} from "vue";
 import { genFileId } from 'element-plus'
-import MdEditor from "md-editor-v3";
 import "md-editor-v3/lib/style.css";
-import { articleApi } from '@/api/article'
-import { categoryApi } from '@/api/category'
+import MdEditor from "md-editor-v3";
+import { articleApi } from '../api/article'
+import { CategoryApi } from '../api/category'
 import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus'
 const article = reactive({
   title: '',
   status: 0,
-  previewImage: '',
+  banner: '',
   description: '',
   content: '',
   content_html:''
@@ -135,17 +140,14 @@ const tag = reactive<{
   tagsSelected: []
 });
 onBeforeMount(() => {
-    categoryApi.selectCaAll().then(res=>{
-        console.log('res:::',res,res.code)
-        if(res.code == 200){
-            tag.list = res.data
-            console.log('tag::',tag.list)
+    CategoryApi.selectCaAll().then( r => {
+        if(r.code == 200){
+            tag.list = r.result
         }
     })
 })
 const onChange = (value:string,render:string) => {
     article.content = value
-    // console.log('render:',render,value)
 };
 const upload = ref<UploadInstance>()
 const handleExceed: UploadProps['onExceed'] = (files) => {
@@ -157,19 +159,19 @@ const handleExceed: UploadProps['onExceed'] = (files) => {
 const handleChange:UploadProps['onChange'] = (file:any):void => {
     console.log('file:',file)
     if(file.status == 'success'){
-        article.previewImage = file.response.data
+        article.banner = file.response.data
     }
 }
 // 保存发布
 const save = () => {
-    let {title,previewImage,description,content} = article
-    console.log(1)
+    let {title,banner,description,content} = article
+    console.log(tag.tagsSelected)
     let params = {
         title,
-        previewImage,
+        banner: banner,
         description,
         content:content,
-        categoryArr:tag.tagsSelected
+        categoryList: tag.tagsSelected
     }
     articleApi.addArticle(params).then(res => {
         console.log(res)
