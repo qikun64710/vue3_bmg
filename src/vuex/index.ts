@@ -1,18 +1,4 @@
-import { ComponentCustomProperties } from 'vue'
-import { Store ,createStore} from 'vuex'
-import newsStore from './news'
-import users from './user'
+import { createStore } from 'vuex'
 
-declare module '@vue/runtime-core' {
-  // 为 `this.$store` 提供类型声明
-  interface ComponentCustomProperties {
-    $store: Store<any>
-  }
-}
-const store = createStore({
-    modules:{
-      "news":newsStore,
-      users
-    }
-})
+const store = createStore({})
 export default store

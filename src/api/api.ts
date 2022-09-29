@@ -1,10 +1,9 @@
 import axios , { AxiosInstance,AxiosRequestConfig,AxiosResponse } from "axios";
-import qs from 'qs'
 import { showMessage } from './status';
 import { ElMessage } from 'element-plus';
 
 const service:AxiosInstance = axios.create({
-    baseURL:process.env.VUE_APP_ENV === 'development' ? process.env.VUE_APP_BASE_API : 'http://124.222.12.80:3001//',
+    baseURL: process.env.VUE_APP_BASE_API,
     validateStatus() {
         // 使用async-await，处理reject情况较为繁琐，所以全部返回resolve，在业务代码中处理异常
         return true
@@ -15,7 +14,7 @@ service.interceptors.request.use((config:AxiosRequestConfig) => {
     //获取token，并将其添加至请求头中
     const token = localStorage.getItem('token')
     if(token){
-      config.headers!.Authorization = `${token}`;
+      config.headers!.Authorization = `${token}`
     }
     return config;
   }, (error:any) => {

@@ -8,21 +8,28 @@
         <el-header class="rightHead">
           <HomeHeadVue></HomeHeadVue>
         </el-header>
+        <el-tabs type="card">
+          <el-tab-pane label="User">
+            <slot></slot>
+          </el-tab-pane>
+        </el-tabs>
         <el-main>
-           <router-view v-slot="{ Component }">
-          <transition name="fade" mode="out-in">
-              <component :is="Component" />
-          </transition>
-        </router-view>
+          <router-view></router-view>
         </el-main>
       </el-container>
     </el-container>
   </div>
 </template>
-<script lang="ts" setup>
+<script lang="ts">
 import LeftAsideVue from './LeftAside.vue';
 import HomeHeadVue from './HomeHead.vue';
-
+import { defineComponent } from 'vue'
+export default defineComponent({
+  components: {
+    LeftAsideVue,
+    HomeHeadVue
+  } 
+})
 </script>
 <style lang="scss" scoped>
   .home{

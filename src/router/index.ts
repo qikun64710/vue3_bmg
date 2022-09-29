@@ -8,18 +8,42 @@ const routes: Array<RouteRecordRaw> = [
     component: Home,
     children:[
       {
-        path: 'editArticle',
+        path: '/article',
+        name: 'Article',
+        component: () => import( '../views/ArticleManage/index.vue'),
+        meta: {
+          title: '文章列表'
+        }
+      },
+      {
+        path: '/article/edit/:id',
         name: 'EditArticle',
-        component: () => import( '../views/editArticle.vue')
+        component: () => import( '../views/ArticleManage/edit.vue'),
+        meta: {
+          title: '编辑文章'
+        }
+      },
+      {
+        path: '/article/add',
+        name: 'AddArticle',
+        component: () => import( '../views/ArticleManage/add.vue'),
+        meta: {
+          title: '添加文章'
+        }
+      },
+      {
+        path: '/article/detail/:id',
+        name: 'ArticleDetail',
+        component: () => import( '../views/ArticleManage/detail.vue'),
+        meta: {
+          title: '文章详情'
+        }
       }
     ]
   },
   {
     path: '/about',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
