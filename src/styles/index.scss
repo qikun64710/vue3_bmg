@@ -1,0 +1,130 @@
+
+  @import './variables.scss';
+  @import './element-ui.scss';
+  @import './transition.scss';
+  *,
+  ::before,
+  ::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+  }
+  html,
+  body {
+   width: 100%;
+   height: 100%;
+   overflow: hidden;
+   font-family: Helvetica Neue,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,微软雅黑,Arial,sans-serif;;
+  }
+  html {
+   box-sizing: border-box;
+  }
+  body {
+   font-size: 14px;
+  }
+
+  #app {
+   width: 100%;
+   height: 100%;
+  }
+  .app-container{
+    background-color: #fff;
+    padding: 20px;
+  }
+  /* transition fade-slide */
+  .fade-slide-leave-active,
+  .fade-slide-enter-active {
+   transition: all 0.3s;
+  }
+
+  .fade-slide-enter-from {
+   opacity: 0;
+   transform: translateX(-30px);
+  }
+
+ .fade-slide-leave-to {
+   opacity: 0;
+   transform: translateX(30px);
+ }
+
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  a:hover,
+  a:link,
+  a:visited,
+  a:active {
+    text-decoration: none;
+  }
+
+  ol,
+  ul {
+    list-style: none;
+  }
+
+  input,
+  textarea {
+    outline: none;
+    border: none;
+    resize: none;
+  }
+  #app{
+    .app-wrapper {
+      width: 100%;
+      height: 100%;
+      .main-container{
+        height: calc(100% - $headerHeight);
+        display: flex;
+      }
+    }
+    .app-main{
+      width: calc(100% - $sideBarWidth);
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding: 15px;
+    }
+    .sidebar-container{
+      transition: width 0.28s;
+      width: $sideBarWidth;
+      height: 100%;
+      overflow: hidden;
+    }
+    .header {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      height: $headerHeight;
+      font-size: 22px;
+      color: #fff;
+      background-color: #242f42;
+      .collapse-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        float: left;
+        padding: 0 21px;
+        cursor: pointer;
+      }
+      .logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        float: left;
+        height: 100%;
+      }
+      .header-right {
+        float: right;
+        padding-right: 50px;
+        .header-user-con {
+          display: flex;
+          height: 70px;
+          align-items: center;
+        }
+      }
+    }
+  }

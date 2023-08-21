@@ -1,66 +1,34 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import Home from '../views/home/Home.vue'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
-const routes: Array<RouteRecordRaw> = [
+const routers = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
-    children:[
+    name: 'article',
+    component: () => import('@/views/home.vue'),
+    redirect: '/article/index',
+    meta: { title: '文章管理' },
+    children: [
       {
-        path: '/article',
-        name: 'Article',
-        component: () => import( '../views/ArticleManage/index.vue'),
-        meta: {
-          title: '文章列表'
-        }
-      },
-      {
-        path: '/article/edit/:id',
-        name: 'EditArticle',
-        component: () => import( '../views/ArticleManage/edit.vue'),
-        meta: {
-          title: '编辑文章'
-        }
+        path: '/article/index',
+        name: 'AboutIndex',
+        component: () => import('@/views/Article/index.vue')
       },
       {
         path: '/article/add',
-        name: 'AddArticle',
-        component: () => import( '../views/ArticleManage/add.vue'),
-        meta: {
-          title: '添加文章'
-        }
+        name: 'AboutAdd',
+        component: () => import('@/views/Article/Add.vue')
       },
       {
-        path: '/article/detail/:id',
-        name: 'ArticleDetail',
-        component: () => import( '../views/ArticleManage/detail.vue'),
-        meta: {
-          title: '文章详情'
-        }
+        path: '/article/tags',
+        name: 'AboutTags',
+        component: () => import('@/views/Article/Tags.vue')
       }
     ]
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  },
-  {
-    path: '/user',
-    name: 'User',
-    component: () => import( '../views/User.vue')
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import( '../views/login/login.vue')
   }
 ]
-
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
+  routes: routers
 })
 
 export default router
