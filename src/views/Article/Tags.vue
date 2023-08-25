@@ -25,6 +25,9 @@
 <script lang="ts" setup>
 import { Delete, Search, Plus } from '@element-plus/icons-vue'
 import { ref } from 'vue'
+defineOptions({
+  name: 'ArticleTags'
+})
 const tableData = [
   {
     tagName: 'java',

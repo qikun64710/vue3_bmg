@@ -1,30 +1,24 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-
-const routers = [
+import Article from './Article/index'
+const basicRouters = [
   {
     path: '/',
-    name: 'article',
-    component: () => import('@/views/home.vue'),
-    redirect: '/article/index',
-    meta: { title: '文章管理' },
+    name: 'Home',
+    component: () => import('@/layout/layout.vue'),
+    redirect: '/Home/index',
+    meta: { title: '首页' },
     children: [
       {
-        path: '/article/index',
-        name: 'AboutIndex',
-        component: () => import('@/views/Article/index.vue')
-      },
-      {
-        path: '/article/add',
-        name: 'AboutAdd',
-        component: () => import('@/views/Article/Add.vue')
-      },
-      {
-        path: '/article/tags',
-        name: 'AboutTags',
-        component: () => import('@/views/Article/Tags.vue')
+        path: '/Home/index',
+        name: 'HomeIndex',
+        component: () => import('@/views/Home/index.vue')
       }
     ]
   }
+]
+const routers = [
+  ...basicRouters,
+  ...Article
 ]
 const router = createRouter({
   history: createWebHashHistory(),

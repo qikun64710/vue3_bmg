@@ -14,7 +14,7 @@
                     </div>
                 </template>
               <el-form-item label="标题" prop="name">
-                <el-input v-model="ruleForm.name" />
+                <el-input v-model="ruleForm.title" />
               </el-form-item>
               <el-form-item label="总结" prop="summary">
                 <el-input v-model="ruleForm.summary" />
@@ -92,7 +92,7 @@ const tag = reactive<{
   tagsSelected: []
 })
 const ruleForm = reactive({
-  name: '',
+  title: '',
   summary: '',
   posterUrl: '',
   text: 'Hello Editor!'
