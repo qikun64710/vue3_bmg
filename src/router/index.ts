@@ -1,6 +1,13 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { Router, createRouter, createWebHashHistory } from 'vue-router'
 import Article from './Article/index'
 const basicRouters = [
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/Login/index.vue'),
+    meta: {},
+    children: []
+  },
   {
     path: '/',
     name: 'Home',
@@ -11,7 +18,7 @@ const basicRouters = [
       {
         path: '/Home/index',
         name: 'HomeIndex',
-        component: () => import('@/views/Home/index.vue')
+        component: () => import('@/views/Login/index.vue')
       }
     ]
   }
@@ -20,7 +27,7 @@ const routers = [
   ...basicRouters,
   ...Article
 ]
-const router = createRouter({
+const router: Router = createRouter({
   history: createWebHashHistory(),
   routes: routers
 })

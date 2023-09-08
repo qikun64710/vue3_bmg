@@ -23,6 +23,6 @@ module.exports = {
   insertPragma: false,
   jsxSingleQuote: true,
   proseWrap: 'preserve',
-  requirePragma: false,
+  requirePragma: true,
   vueIndentScriptAndStyle: false
 }
