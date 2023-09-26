@@ -1,15 +1,29 @@
 <template>
-  <el-menu class="sidebar-container">
+  <el-menu
+    class="sidebar-container"
+    :default-active="activeMenu"
+  >
     <menuTree :menu-list="menuList" />
   </el-menu>
 </template>
 <script lang="ts" setup>
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+import { getActiveMenu } from '@/router/index'
 import menuTree from './menuTree.vue'
 interface MenuType{
   name: string,
   index: string,
   children?: MenuType[]
 }
+const activeMenu = computed(() => {
+  const route = useRoute()
+  const activeMenu = getActiveMenu(route)
+  if (activeMenu) {
+    return activeMenu
+  }
+  return route.path
+})
 const menuList: MenuType[] = [
   {
     name: '系统首页',

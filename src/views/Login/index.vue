@@ -44,7 +44,7 @@
 </template>
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
-// import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import type { FormInstance } from 'element-plus'
 import { Lock, User } from '@element-plus/icons-vue'
 import { loginRules } from './rule'
@@ -53,7 +53,7 @@ interface RuleForm {
     username: string
     password: string
 }
-// const router = useRouter()
+const router = useRouter()
 const formSize = ref<string>('default')
 const ruleFormRef = ref<FormInstance>()
 const ruleForm: RuleForm = reactive({
@@ -70,9 +70,9 @@ const submitForm = async(formEl: FormInstance | undefined) => {
         url: '/api/test',
         method: 'get'
       })
-    //   router.push({
-    //     name: 'ArticleIndex'
-    //   })
+      router.push({
+        name: 'ArticleIndex'
+      })
     } else {
       console.log('error submit!', fields)
     }

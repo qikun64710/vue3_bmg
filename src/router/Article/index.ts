@@ -9,22 +9,34 @@ const routers = [
       {
         path: '/article/index',
         name: 'ArticleIndex',
-        component: () => import('@/views/Article/index.vue')
+        component: () => import('@/views/Article/index.vue'),
+        meta: {
+          active: '/article/index'
+        }
       },
       {
         path: '/article/add',
         name: 'ArticleAdd',
-        component: () => import('@/views/Article/Add.vue')
+        component: () => import('@/views/Article/Add.vue'),
+        meta: {
+          active: '/article/add'
+        }
       },
       {
         path: '/article/edit',
         name: 'ArticleEdit',
-        component: () => import('@/views/Article/Edit.vue')
+        component: () => import('@/views/Article/Edit.vue'),
+        meta: {
+          active: '/article/edit'
+        }
       },
       {
         path: '/article/tags',
         name: 'ArticleTags',
-        component: () => import('@/views/Article/Tags.vue')
+        component: () => import('@/views/Article/Tags.vue'),
+        meta: {
+          active: '/article/tags'
+        }
       }
     ]
   }
